@@ -1,0 +1,74 @@
+
+Formação Cientista de Dados
+Faça você mesmo
+Importação dos dados
+```{r}
+dados = read.csv('dados.csv', sep=";")
+head(dados)
+```
+Vizualização dos dados
+```{r}
+summary(dados$VALOREMPENHO)
+summary(dados$PIB)
+boxplot(dados$VALOREMPENHO, main="Empenho", col = 'blue', outline = F, ylab = 'Valor' )
+boxplot(dados$PIB ,main="PIB", col = 'red', outline = F, ylab = 'Valor' )
+hist(dados$VALOREMPENHO,main="Frequencia de Empenho", col= gray.colors(6), xlab = 'Valor', ylab='Frequencia')
+hist(dados$PIB,main="Frequencia do PIB", col= gray.colors(5) , xlab = 'Valor', ylab='Frequencia')
+```
+Vendo os menores PIBs e maiores
+```{r}
+#Menor
+MenorPIB =  head(dados[order(+dados$PIB),],10)
+head(MenorPIB)
+barplot(MenorPIB$PIB, col = rainbow(10), las=3 ,main = "Menores PIBS")
+legend("bottomright",legend=MenorPIB$MUNICIPIO,col = rainbow(10), lty=1:2, cex=0.5, ncol = 3)
+box()
+#Maior
+MaiorPIB =  head(dados[order(-dados$PIB),],10)
+head(MaiorPIB)
+barplot(MaiorPIB$PIB, col = rainbow(10), las=3 ,main = "Maiores PIBS")
+legend("topright",legend=MaiorPIB$MUNICIPIO,col = rainbow(10), lty=1:2, cex=0.6, ncol = 3)
+box()
+
+
+```
+Vendo os menores Empenhos e maiores
+```{r}
+#Menor
+MenorEmp =  head(dados[order(+dados$VALOREMPENHO),],10)
+head(MenorEmp)
+barplot(MenorEmp$VALOREMPENHO, col = rainbow(10), las=3 ,main = "Menores Empenhos")
+legend("topleft",legend=MenorEmp$MUNICIPIO,col = rainbow(10), lty=1:2, cex=0.5, ncol = 3)
+box()
+#Maior
+MaiorEmp =  head(dados[order(-dados$VALOREMPENHO),],10)
+head(MaiorEmp)
+barplot(MaiorEmp$VALOREMPENHO, col = rainbow(10), las=3 ,main = "Maiores Empenhos")
+legend("topright",legend=MaiorEmp$MUNICIPIO,col = rainbow(10), lty=1:2, cex=0.6, ncol = 2)
+box()
+
+```
+Calculando e vizualizando empenho/pib
+```{r}
+dados$Prop = dados$VALOREMPENHO  / dados$PIB 
+summary(dados$Prop)
+boxplot(dados$Prop, main="Porpoção", col = 'Green', ylab = 'Valor' )
+hist(dados$Prop,main="Frequencia de Porpoção", col= gray.colors(6), xlab = 'Valor', ylab='Frequencia')
+
+# os 10 maiores e 10 menores
+#Menor
+MenorProp =  head(dados[order(+dados$Prop),],10)
+head(MenorProp, 10)
+barplot(MenorProp$Prop, col = rainbow(10), las=2 ,main = "Menores Porpoção")
+legend("topleft",legend=MenorProp$MUNICIPIO,col = rainbow(10), lty=1:2, cex=0.5, ncol = 2)
+box()
+#Maior
+MaiorProp =  head(dados[order(-dados$Prop),],10)
+head(MaiorProp, 10)
+barplot(MaiorProp$Prop, col = rainbow(10), las=3 ,main = "Maiores Empenhos")
+legend("topright",legend=MaiorProp$MUNICIPIO,col = rainbow(10), lty=1:2, cex=0.6, ncol = 2)
+box()
+
+
+```
+
